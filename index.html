@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Arab Singh | Portfolio</title>
+
+<!-- Fonts from Google (needs internet). If offline, the fallback fonts are used. -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Manrope:wght@400;500;600&display=swap" rel="stylesheet">
+
+<style>
+/* ============ 1. VARIABLES: change colours here and the whole site changes ============ */
+:root{
+  --bg:#0e0b1f;          /* deep night blue */
+  --panel:#1a1536;       /* card colour */
+  --violet:#7c5cff;
+  --cyan:#22d3ee;
+  --coral:#ff6b8a;
+  --text:#ece9ff;
+  --muted:#a29fc4;
+  --head:'Syne','Trebuchet MS',sans-serif;
+  --body:'Manrope','Segoe UI',sans-serif;
+}
+
+/* ============ 2. RESET & BASE ============ */
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  background:var(--bg);color:var(--text);
+  font-family:var(--body);line-height:1.7;
+  overflow-x:hidden;
+}
+a{color:inherit;text-decoration:none}
+section{padding:90px 8vw}
+h2{font-family:var(--head);font-size:clamp(2rem,5vw,3rem);margin-bottom:40px}
+a:focus-visible,button:focus-visible{outline:3px solid var(--cyan);outline-offset:3px}
+
+/* ============ 3. BACKGROUND GLOWING ORBS (floating animation) ============ */
+.orb{
+  position:fixed;border-radius:50%;filter:blur(90px);
+  opacity:.45;z-index:-1;animation:float 14s ease-in-out infinite;
+}
+.orb.one{width:380px;height:380px;background:var(--violet);top:-80px;left:-80px}
+.orb.two{width:320px;height:320px;background:var(--coral);bottom:-60px;right:-60px;animation-delay:-5s}
+.orb.three{width:260px;height:260px;background:var(--cyan);top:50%;left:55%;opacity:.25;animation-delay:-9s}
+@keyframes float{
+  0%,100%{transform:translate(0,0)}
+  50%{transform:translate(40px,-50px)}
+}
+
+/* ============ 4. NAVIGATION ============ */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:10;
+  display:flex;justify-content:space-between;align-items:center;
+  padding:18px 8vw;
+  background:rgba(14,11,31,.7);backdrop-filter:blur(12px);
+}
+.logo{font-family:var(--head);font-size:1.4rem;font-weight:800}
+.logo span{color:var(--cyan)}
+nav ul{display:flex;gap:28px;list-style:none}
+nav ul a{color:var(--muted);transition:color .3s}
+nav ul a:hover{color:var(--text)}
+
+/* ============ 5. HERO ============ */
+.hero{
+  min-height:100vh;display:grid;
+  grid-template-columns:1.2fr 1fr;align-items:center;gap:40px;
+  padding-top:120px;
+}
+.hero h1{
+  font-family:var(--head);font-weight:800;
+  font-size:clamp(3rem,9vw,6.5rem);line-height:1;
+  background:linear-gradient(100deg,var(--text),var(--violet) 55%,var(--cyan));
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+}
+.hero p.role{font-size:1.25rem;margin:22px 0 12px;color:var(--text)}
+.hero p.sub{color:var(--muted);max-width:46ch}
+.buttons{display:flex;gap:16px;margin-top:32px;flex-wrap:wrap}
+.btn{
+  padding:14px 30px;border-radius:50px;font-weight:600;
+  transition:transform .3s,box-shadow .3s;
+}
+.btn.fill{background:linear-gradient(120deg,var(--violet),var(--coral));box-shadow:0 8px 30px rgba(124,92,255,.45)}
+.btn.line{border:2px solid var(--violet)}
+.btn:hover{transform:translateY(-4px) scale(1.04)}
+
+/* ---- THE 3D CUBE (the star of the page) ----
+   perspective  = how deep the 3D looks (on the parent)
+   transform-style: preserve-3d = children stay in 3D space
+   Each face is moved out by translateZ after being rotated. */
+.scene{display:flex;justify-content:center;perspective:900px}
+.cube{
+  width:190px;height:190px;position:relative;
+  transform-style:preserve-3d;
+  animation:spin 16s linear infinite;
+}
+.scene:hover .cube{animation-play-state:paused}  /* hover to pause */
+.face{
+  position:absolute;width:190px;height:190px;
+  display:grid;place-items:center;
+  font-family:var(--head);font-size:1.9rem;font-weight:800;
+  border:2px solid rgba(255,255,255,.35);border-radius:18px;
+  backdrop-filter:blur(4px);
+  box-shadow:inset 0 0 40px rgba(255,255,255,.12);
+}
+.f1{transform:rotateY(0deg)   translateZ(95px);background:rgba(124,92,255,.55)}
+.f2{transform:rotateY(90deg)  translateZ(95px);background:rgba(34,211,238,.45)}
+.f3{transform:rotateY(180deg) translateZ(95px);background:rgba(255,107,138,.5)}
+.f4{transform:rotateY(-90deg) translateZ(95px);background:rgba(124,92,255,.4)}
+.f5{transform:rotateX(90deg)  translateZ(95px);background:rgba(34,211,238,.35)}
+.f6{transform:rotateX(-90deg) translateZ(95px);background:rgba(255,107,138,.4)}
+@keyframes spin{
+  from{transform:rotateX(-20deg) rotateY(0deg)}
+  to  {transform:rotateX(-20deg) rotateY(360deg)}
+}
+
+/* ============ 6. ABOUT ============ */
+.about{display:grid;grid-template-columns:1fr 1fr;gap:50px;align-items:center}
+.about p{color:var(--muted);margin-bottom:16px}
+.facts{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.fact{
+  background:var(--panel);padding:24px;border-radius:20px;
+  border:1px solid rgba(255,255,255,.08);
+}
+.fact b{display:block;font-family:var(--head);font-size:1.6rem;color:var(--cyan)}
+.fact span{color:var(--muted);font-size:.9rem}
+
+/* ============ 7. SKILLS: 3D FLIP CARDS ============ */
+.skills-grid{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+  gap:26px;perspective:1000px;
+}
+.flip{height:170px}
+.flip-inner{
+  position:relative;width:100%;height:100%;
+  transform-style:preserve-3d;transition:transform .7s;
+}
+.flip:hover .flip-inner,.flip:focus-within .flip-inner{transform:rotateY(180deg)}
+.side{
+  position:absolute;inset:0;border-radius:22px;
+  display:flex;flex-direction:column;justify-content:center;align-items:center;
+  backface-visibility:hidden;         /* hides the back of each side */
+  -webkit-backface-visibility:hidden;
+  padding:16px;text-align:center;
+}
+.front{background:var(--panel);border:1px solid rgba(255,255,255,.1);font-family:var(--head);font-size:1.5rem;font-weight:700}
+.back{
+  background:linear-gradient(135deg,var(--violet),var(--coral));
+  transform:rotateY(180deg);font-size:.95rem;
+}
+
+/* ============ 8. PROJECTS: cards that tilt in 3D on hover ============ */
+.projects-grid{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+  gap:30px;perspective:1000px;
+}
+.card{
+  background:var(--panel);padding:32px;border-radius:24px;
+  border:1px solid rgba(255,255,255,.08);
+  transition:transform .5s,box-shadow .5s;
+}
+.card:hover{
+  transform:rotateX(8deg) rotateY(-10deg) translateZ(20px);
+  box-shadow:-20px 25px 50px rgba(124,92,255,.35);
+}
+.card h3{font-family:var(--head);margin-bottom:10px;font-size:1.35rem}
+.card p{color:var(--muted);margin-bottom:16px}
+.tag{
+  display:inline-block;padding:4px 14px;margin:0 6px 6px 0;
+  border-radius:20px;font-size:.8rem;
+  background:rgba(34,211,238,.15);color:var(--cyan);
+}
+
+/* ============ 9. CONTACT & FOOTER ============ */
+.contact{text-align:center}
+.contact p{color:var(--muted);max-width:50ch;margin:0 auto 30px}
+.contact .buttons{justify-content:center}
+footer{text-align:center;padding:30px;color:var(--muted);font-size:.9rem}
+
+/* ============ 10. MOBILE (screens smaller than 800px) ============ */
+@media (max-width:800px){
+  nav ul{display:none}
+  .hero,.about{grid-template-columns:1fr}
+  .scene{order:-1;margin-bottom:30px;transform:scale(.75)}
+}
+
+/* ============ 11. Respect people who turn off animations ============ */
+@media (prefers-reduced-motion:reduce){
+  *{animation:none!important;transition:none!important}
+}
+</style>
+</head>
+
+<body>
+<!-- Floating glow shapes in the background -->
+<div class="orb one"></div><div class="orb two"></div><div class="orb three"></div>
+
+<!-- NAVIGATION -->
+<nav>
+  <a href="#home" class="logo">Arab<span>.</span></a>
+  <ul>
+    <li><a href="#about">About</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div>
+    <h1>Arab Singh</h1>
+    <p class="role">BSc &amp; BCA student, 1st semester</p>
+    <p class="sub">I am learning to build things for the web, one line of code at a time. This portfolio is my first big project.</p>
+    <div class="buttons">
+      <a href="#projects" class="btn fill">See my work</a>
+      <a href="#contact" class="btn line">Contact me</a>
+    </div>
+  </div>
+
+  <!-- 3D cube: six faces, one for each thing I am learning -->
+  <div class="scene">
+    <div class="cube">
+      <div class="face f1">HTML</div>
+      <div class="face f2">CSS</div>
+      <div class="face f3">C</div>
+      <div class="face f4">Maths</div>
+      <div class="face f5">Logic</div>
+      <div class="face f6">Growth</div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <h2>About me</h2>
+  <div class="about">
+    <div>
+      <p>Hi, I am Arab Singh from Sambalpur, Odisha. I am studying BSc and BCA, and I have just started my journey into programming.</p>
+      <p>I enjoy learning by building. Every semester I want to add new skills, make small projects, and share what I learn with friends.</p>
+    </div>
+    <div class="facts">
+      <div class="fact"><b>1st</b><span>Semester</span></div>
+      <div class="fact"><b>2</b><span>Courses: BSc and BCA</span></div>
+      <div class="fact"><b>Odisha</b><span>Where I study</span></div>
+      <div class="fact"><b>Daily</b><span>Coding practice</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS (hover or tap a card to flip it) -->
+<section id="skills">
+  <h2>What I am learning</h2>
+  <div class="skills-grid">
+    <div class="flip" tabindex="0"><div class="flip-inner">
+      <div class="side front">HTML</div>
+      <div class="side back">Building page structure: headings, links, images, forms.</div>
+    </div></div>
+    <div class="flip" tabindex="0"><div class="flip-inner">
+      <div class="side front">CSS</div>
+      <div class="side back">Colours, layouts, and animations like the ones on this page.</div>
+    </div></div>
+    <div class="flip" tabindex="0"><div class="flip-inner">
+      <div class="side front">C Language</div>
+      <div class="side back">Learning how programs think: variables, loops, functions.</div>
+    </div></div>
+    <div class="flip" tabindex="0"><div class="flip-inner">
+      <div class="side front">Problem solving</div>
+      <div class="side back">Breaking big problems into small steps.</div>
+    </div></div>
+  </div>
+</section>
+
+<!-- PROJECTS (replace these with your real ones as you build them) -->
+<section id="projects">
+  <h2>My projects</h2>
+  <div class="projects-grid">
+    <div class="card">
+      <h3>This portfolio</h3>
+      <p>A 3D animated personal site made with only HTML and CSS.</p>
+      <span class="tag">HTML</span><span class="tag">CSS</span>
+    </div>
+    <div class="card">
+      <h3>Calculator in C</h3>
+      <p>Coming soon: a simple calculator using functions and switch statements.</p>
+      <span class="tag">C</span>
+    </div>
+    <div class="card">
+      <h3>Next idea</h3>
+      <p>Your next project goes here. Add it when you finish it.</p>
+      <span class="tag">Your choice</span>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact" id="contact">
+  <h2>Let's connect</h2>
+  <p>I am happy to learn with other students and to hear advice from seniors. Send me a message.</p>
+  <div class="buttons">
+    <!-- Replace these with your real email and profile links -->
+    <a href="mailto:yourname@example.com" class="btn fill">Email me</a>
+    <a href="https://github.com/" class="btn line">GitHub</a>
+  </div>
+</section>
+
+<footer>Made by Arab Singh while learning HTML and CSS</footer>
+
+<span>Contact with me on Instagram: <a href="https://www.instagram.com/arab_singh_019?knvt=NmlxNGsyb2Q1MDc4" target="instagram"> @arab_singh_019 </a></span>
+</body>
+</html>
